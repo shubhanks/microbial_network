@@ -15,7 +15,7 @@ Input files
 
 1. list_microbes_C1C2_uptake_products.csv - Information about micro-organisms utlizing substrates along with some references.
 
-2. microbial_network.ipynb - This is the main file where all the codes along with functions are written. The code first import the information and implement based on that. No or minimal hard wiring is done for curating the network. 
+2. microbial_network.ipynb - This is the main file as interactive file for Jupyter Notebook where all the codes along with functions are written. The codes first import the information and implement based on that. No or minimal hard wiring is done for curating the network. 
 
 
 3. Improvement is needed to update the nodes position of the network.
