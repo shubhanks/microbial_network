@@ -1,0 +1,12 @@
+SN,Bacteria,C1/C2 feedstocks,Pathway taken/modified,ATP produced,Products,Inhibition,References
+1,Methylococcus capsulatus,Methane,ribulose monophosphate (RuMP)-pathway,4,"SCP,Butanol",Ethanol,"Xing XH, Wu H, Luo MF, Wang BP. Effects of organic chemicals on growth of Methylosinus trichosporium OB3b. Biochemical Engineering Journal. 2006 Sep 1;31(2):113-7."
+2,Methylomicrobium buryatense 5g,Methane,"ribulose monophosphate (RuMP)-pathway, methanol dehydrogenase",4,"Lipid,CO2",,10.3389/fmicb.2016.02167
+3,Clostridium ljungdahlii,"CO2,CO,Ethanol",Wood Ljungdahl pathway,2,"Acetate,Ethanol",Acetate,10.1073/pnas.1004716107
+4,Clostridium ragsdalei,"CO2,CO",Wood Ljungdahl pathway,2,"Ethanol,Acetate,Vitamins",Ethanol,10.1016/j.biortech.2016.02.086
+5,Methylosinus trichosporium 11131,"Methane,Formate"," ribulose monophosphate (RuMP)-pathway, methanol dehydrogenase",4,"PHB,CO2",,https://doi.org/10.1016/j.jenvman.2021.113927
+6,Cupriavidus necator,CO2,CBB cycle,-7,PHB,,10.1186/s12934-020-01494-y
+7,Alkalibaculum bacchi,CO,,,Ethanol,,10.1099/ijs.0.018507-0
+8,E. coli Mach T1,"Acetate,Ethanol,Methanol","glyoxylate pathway, serine pathway",4,"Amino acids, beta caryophyllene,Ethanol,Butanol,PHB",Acetate,10.1186/s12934-019-1106-0
+9,Pseudomonas denitrificans,Acetate,acetyl CoA synthase,-2,Vitamins,Vitamins,https://doi.org/10.1016/j.biortech.2020.123194
+10,Bacillus methanolicus NOA2,Methanol,,,Amino acids,Acetate,10.1002/bbb.1773
+11,Clostridium acetobutylicum,Acetate,acetyl-coa synthesis pathway,-2,"Ethanol,Butanol",Formaldehyde,10.1128/AEM.06382-11
