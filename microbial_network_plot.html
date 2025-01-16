@@ -1,0 +1,172 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 1150px;
+                 height: 900px;
+                 background-color: white;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "rgba(0,255,0,1.000)", "font": {"color": "black"}, "id": "Methane", "label": "Methane", "shape": "dot", "title": "Methane"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "Methylococcus capsulatus", "label": "Methylococcus capsulatus", "shape": "dot", "title": "Methylococcus capsulatus"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "Methylomicrobium buryatense 5g", "label": "Methylomicrobium buryatense 5g", "shape": "dot", "title": "Methylomicrobium buryatense 5g"}, {"color": "rgba(0,255,0,1.000)", "font": {"color": "black"}, "id": "CO2", "label": "CO2", "shape": "dot", "title": "CO2"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "Clostridium ljungdahlii", "label": "Clostridium ljungdahlii", "shape": "dot", "title": "Clostridium ljungdahlii"}, {"color": "rgba(0,255,0,1.000)", "font": {"color": "black"}, "id": "CO", "label": "CO", "shape": "dot", "title": "CO"}, {"color": "rgba(0,0,255,1.000)", "font": {"color": "black"}, "id": "Ethanol", "label": "Ethanol", "shape": "dot", "title": "Ethanol"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "Clostridium ragsdalei", "label": "Clostridium ragsdalei", "shape": "dot", "title": "Clostridium ragsdalei"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "Methylosinus trichosporium\u00a011131", "label": "Methylosinus trichosporium\u00a011131", "shape": "dot", "title": "Methylosinus trichosporium\u00a011131"}, {"color": "rgba(0,0,255,1.000)", "font": {"color": "black"}, "id": "Formate", "label": "Formate", "shape": "dot", "title": "Formate"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "Cupriavidus necator", "label": "Cupriavidus necator", "shape": "dot", "title": "Cupriavidus necator"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "Alkalibaculum bacchi", "label": "Alkalibaculum bacchi", "shape": "dot", "title": "Alkalibaculum bacchi"}, {"color": "rgba(0,255,0,1.000)", "font": {"color": "black"}, "id": "Acetate", "label": "Acetate", "shape": "dot", "title": "Acetate"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "E. coli Mach T1", "label": "E. coli Mach T1", "shape": "dot", "title": "E. coli Mach T1"}, {"color": "rgba(0,255,0,1.000)", "font": {"color": "black"}, "id": "Methanol", "label": "Methanol", "shape": "dot", "title": "Methanol"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "Pseudomonas denitrificans", "label": "Pseudomonas denitrificans", "shape": "dot", "title": "Pseudomonas denitrificans"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "Bacillus methanolicus NOA2", "label": "Bacillus methanolicus NOA2", "shape": "dot", "title": "Bacillus methanolicus NOA2"}, {"color": "rgba(255,205,0,1.000)", "font": {"color": "black"}, "id": "Clostridium acetobutylicum", "label": "Clostridium acetobutylicum", "shape": "dot", "title": "Clostridium acetobutylicum"}, {"color": "rgba(0,0,255,1.000)", "font": {"color": "black"}, "id": "SCP", "label": "SCP", "shape": "dot", "title": "SCP"}, {"color": "rgba(0,0,255,1.000)", "font": {"color": "black"}, "id": "Butanol", "label": "Butanol", "shape": "dot", "title": "Butanol"}, {"color": "rgba(0,0,255,1.000)", "font": {"color": "black"}, "id": "Lipid", "label": "Lipid", "shape": "dot", "title": "Lipid"}, {"color": "rgba(0,0,255,1.000)", "font": {"color": "black"}, "id": "Vitamins", "label": "Vitamins", "shape": "dot", "title": "Vitamins"}, {"color": "rgba(0,0,255,1.000)", "font": {"color": "black"}, "id": "PHB", "label": "PHB", "shape": "dot", "title": "PHB"}, {"color": "rgba(0,0,255,1.000)", "font": {"color": "black"}, "id": "Amino acids", "label": "Amino acids", "shape": "dot", "title": "Amino acids"}, {"color": "rgba(0,0,255,1.000)", "font": {"color": "black"}, "id": " beta caryophyllene", "label": " beta caryophyllene", "shape": "dot", "title": " beta caryophyllene"}, {"color": "rgba(0,0,255,1.000)", "font": {"color": "black"}, "id": "Formaldehyde", "label": "Formaldehyde", "shape": "dot", "title": "Formaldehyde"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": "black", "from": "Methylococcus capsulatus", "to": "SCP"}, {"arrows": "to", "color": "black", "from": "Methylococcus capsulatus", "to": "Butanol"}, {"arrows": "to", "color": "black", "from": "Methylomicrobium buryatense 5g", "to": "Lipid"}, {"arrows": "to", "color": "black", "from": "Methylomicrobium buryatense 5g", "to": "CO2"}, {"arrows": "to", "color": "black", "from": "Clostridium ljungdahlii", "to": "Acetate"}, {"arrows": "to", "color": "black", "from": "Clostridium ljungdahlii", "to": "Ethanol"}, {"arrows": "to", "color": "black", "from": "CO", "to": "Clostridium ljungdahlii"}, {"arrows": "to", "color": "black", "from": "CO", "to": "Clostridium ragsdalei"}, {"arrows": "to", "color": "black", "from": "Ethanol", "to": "Clostridium ljungdahlii"}, {"arrows": "to", "color": "black", "from": "Ethanol", "to": "E. coli Mach T1"}, {"arrows": "to", "color": "black", "from": "Clostridium ragsdalei", "to": "Ethanol"}, {"arrows": "to", "color": "black", "from": "Clostridium ragsdalei", "to": "Acetate"}, {"arrows": "to", "color": "black", "from": "Clostridium ragsdalei", "to": "Vitamins"}, {"arrows": "to", "color": "black", "from": "Methylosinus trichosporium\u00a011131", "to": "PHB"}, {"arrows": "to", "color": "black", "from": "Methylosinus trichosporium\u00a011131", "to": "CO2"}, {"arrows": "to", "color": "black", "from": "Formate", "to": "Methylosinus trichosporium\u00a011131"}, {"arrows": "to", "color": "black", "from": "Cupriavidus necator", "to": "PHB"}, {"arrows": "to", "color": "black", "from": "Alkalibaculum bacchi", "to": "Ethanol"}, {"arrows": "to", "color": "black", "from": "E. coli Mach T1", "to": "Amino acids"}, {"arrows": "to", "color": "black", "from": "E. coli Mach T1", "to": " beta caryophyllene"}, {"arrows": "to", "color": "black", "from": "E. coli Mach T1", "to": "Ethanol"}, {"arrows": "to", "color": "black", "from": "E. coli Mach T1", "to": "Butanol"}, {"arrows": "to", "color": "black", "from": "E. coli Mach T1", "to": "PHB"}, {"arrows": "to", "color": "black", "from": "Methanol", "to": "E. coli Mach T1"}, {"arrows": "to", "color": "black", "from": "Pseudomonas denitrificans", "to": "Vitamins"}, {"arrows": "to", "color": "black", "from": "Bacillus methanolicus NOA2", "to": "Amino acids"}, {"arrows": "to", "color": "black", "from": "Clostridium acetobutylicum", "to": "Ethanol"}, {"arrows": "to", "color": "black", "from": "Clostridium acetobutylicum", "to": "Butanol"}, {"arrows": "to", "color": "black", "from": "Methane", "to": "Methylococcus capsulatus", "weight": 12}, {"arrows": "to", "color": "black", "from": "Methane", "to": "Methylomicrobium buryatense 5g", "weight": 12}, {"arrows": "to", "color": "black", "from": "CO2", "to": "Clostridium ljungdahlii", "weight": 6}, {"arrows": "to", "color": "black", "from": "CO2", "to": "Clostridium ragsdalei", "weight": 6}, {"arrows": "to", "color": "black", "from": "Methane", "to": "Methylosinus trichosporium\u00a011131", "weight": 12}, {"arrows": "to", "color": "black", "from": "Acetate", "to": "E. coli Mach T1", "weight": 12}, {"arrows": "to", "color": "rgba(255,128,0,1.000)", "from": "CO2", "to": "Cupriavidus necator"}, {"arrows": "to", "color": "rgba(255,128,0,1.000)", "from": "CO", "to": "Alkalibaculum bacchi"}, {"arrows": "to", "color": "rgba(255,128,0,1.000)", "from": "Acetate", "to": "Pseudomonas denitrificans"}, {"arrows": "to", "color": "rgba(255,128,0,1.000)", "from": "Methanol", "to": "Bacillus methanolicus NOA2"}, {"arrows": "to", "color": "rgba(255,128,0,1.000)", "from": "Acetate", "to": "Clostridium acetobutylicum"}, {"arrows": {"endPointOffset": {"to": 2}, "to": {"type": "circle"}}, "color": "rgba(255,0,0)", "from": "Ethanol", "to": "Methylococcus capsulatus"}, {"arrows": {"endPointOffset": {"to": 2}, "to": {"type": "circle"}}, "color": "rgba(255,0,0)", "from": "Acetate", "to": "Clostridium ljungdahlii"}, {"arrows": {"endPointOffset": {"to": 2}, "to": {"type": "circle"}}, "color": "rgba(255,0,0)", "from": "Ethanol", "to": "Clostridium ragsdalei"}, {"arrows": {"endPointOffset": {"to": 2}, "to": {"type": "circle"}}, "color": "rgba(255,0,0)", "from": "Acetate", "to": "E. coli Mach T1"}, {"arrows": {"endPointOffset": {"to": 2}, "to": {"type": "circle"}}, "color": "rgba(255,0,0)", "from": "Vitamins", "to": "Pseudomonas denitrificans"}, {"arrows": {"endPointOffset": {"to": 2}, "to": {"type": "circle"}}, "color": "rgba(255,0,0)", "from": "Acetate", "to": "Bacillus methanolicus NOA2"}, {"arrows": {"endPointOffset": {"to": 2}, "to": {"type": "circle"}}, "color": "rgba(255,0,0)", "from": "Formaldehyde", "to": "Clostridium acetobutylicum"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics",
+            "nodes",
+            "edges"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
