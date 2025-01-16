@@ -3,7 +3,7 @@
 
 This is a set of Python codes for implementing microbial network of producing certain compounds by utilizing C1/C2 carbon source as a substrate. 
 
-1. The network so developed is a weighted directed network. Nodes in the network are taken as C1/C2 substrates, micro-organisms utilizing a single or multiple substrate and produce value added products. 
+1. The network so developed is a weighted signed directed network. Nodes in the network are taken as C1/C2 substrates, micro-organisms utilizing a single or multiple substrate and produce value added products. 
 
 2. Some products at higher titre have toxicity to the micro-organisms which pertaining to the inhbitory interactions (red color; hammer shaped). 
 
